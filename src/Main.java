@@ -151,10 +151,10 @@ public class Main {
         Random random = new Random();
         int randomDamage = random.nextInt(15) + 1;
         int randomC = random.nextInt(3) + 1;
-        if (heroesHealth[4] > 0 && bossHealth > 0) {
+        if (heroesHealth[6] > 0 && bossHealth > 0) {
             switch (randomC) {
                 case 1:
-                    heroesDamage[4] = (heroesDamage[4] + bossDamage) - randomDamage;
+                    heroesDamage[6] = (heroesDamage[6] + bossDamage) - randomDamage;
                     System.out.println("Berserk critical damage ");
                     System.out.println("Berserk lost health " + randomDamage);
                     break;
