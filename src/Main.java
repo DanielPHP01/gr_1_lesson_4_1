@@ -4,9 +4,9 @@ public class Main {
     public static int bossHealth = 700;
     public static int bossDamage = 50;
     public static String bossDefenceType;
-    public static int[] heroesHealth = {250, 270, 280, 300, 400};
-    public static int[] heroesDamage = {25, 20, 15, 0, 5};
-    public static String[] heroesAttackType = {"Physical", "Magical", "Kinetic", "Medic", "Golem"};
+    public static int[] heroesHealth = {250, 270, 280, 300, 400,200,290,240};
+    public static int[] heroesDamage = {25, 20, 15, 0, 5,3,7,1};
+    public static String[] heroesAttackType = {"Physical", "Magical", "Kinetic", "Medic", "Golem","Lucky","Berserk","Thor"};
     public static int roundNumber = 0;
 
     public static void main(String[] args) {
@@ -21,8 +21,11 @@ public class Main {
         chooseBossDefence();
         bossHits();
         heroesHit();
-        golemDefence();
+        golemSuperSkill();
         heroesTreatment();
+        luckySuperSkill();
+        berserkSuperSkill();
+        thorSuperSkill();
         printStatistics();
 
 
@@ -124,12 +127,51 @@ public class Main {
     }
 
 
-    public static void golemDefence() {
+    public static void golemSuperSkill() {
         for (int i = 0; i < heroesHealth.length; i++) {
             if (heroesHealth[4] > 0 && heroesHealth[i] > 0 && heroesHealth[4] != heroesHealth[i]) {
                 heroesHealth[i] += bossDamage / 5;
                 heroesHealth[4] -= bossDamage / 5;
             }
+        }
+    }
+    public static void luckySuperSkill () {
+        Random random = new Random();
+        int randomLucky = random.nextInt(6) + 1;
+        switch (randomLucky) {
+            case 1:
+                heroesHealth[5] = heroesHealth[5] + bossDamage;
+                System.out.println("Lucky");
+            case 2:
+            case 3:
+            case 4:
+        }
+    }
+    public static void berserkSuperSkill () {
+        Random random = new Random();
+        int randomDamage = random.nextInt(15) + 1;
+        int randomC = random.nextInt(3) + 1;
+        if (heroesHealth[4] > 0 && bossHealth > 0) {
+            switch (randomC) {
+                case 1:
+                    heroesDamage[4] = (heroesDamage[4] + bossDamage) - randomDamage;
+                    System.out.println("Berserk critical damage ");
+                    System.out.println("Berserk lost health " + randomDamage);
+                    break;
+                case 2:
+                    bossDamage = 50;
+                    break;
+            }
+        }
+    }
+    public static void thorSuperSkill () {
+        Random random = new Random();
+        boolean thor = random.nextBoolean();
+        if (thor) {
+            bossDamage = 0;
+            System.out.println("Boss frozen ");
+        } else {
+            bossDamage = 50;
         }
     }
 }
