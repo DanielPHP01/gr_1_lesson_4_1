@@ -4,9 +4,9 @@ public class Main {
     public static int bossHealth = 700;
     public static int bossDamage = 50;
     public static String bossDefenceType;
-    public static int[] heroesHealth = {250, 270, 280, 300};
-    public static int[] heroesDamage = {25, 20, 15, 0};
-    public static String[] heroesAttackType = {"Physical", "Magical", "Kinetic", "Medic"};
+    public static int[] heroesHealth = {250, 270, 280, 300, 400};
+    public static int[] heroesDamage = {25, 20, 15, 0, 5};
+    public static String[] heroesAttackType = {"Physical", "Magical", "Kinetic", "Medic", "Golem"};
     public static int roundNumber = 0;
 
     public static void main(String[] args) {
@@ -21,6 +21,7 @@ public class Main {
         chooseBossDefence();
         bossHits();
         heroesHit();
+        golemDefence();
         heroesTreatment();
         printStatistics();
 
@@ -107,21 +108,32 @@ public class Main {
     public static void heroesTreatment() {
         int medic = 20;
 
-
-        for (int i = 0; i < heroesHealth.length; i++) {
-            if (heroesHealth[3] > 0) {
-                if (heroesHealth[3] < 100) {
-                    heroesHealth[3] += 0;
+        if (heroesHealth[3] > 0) {
+            for (int i = 0; i < heroesHealth.length; i++) {
+                if (i == 3) {
                     continue;
                 }
-                if (heroesHealth[i] <= 100) {
+                if (heroesHealth[i] > 0 && heroesHealth[i] <100) {
                     heroesHealth[i] += medic;
+                    System.out.println("Medic healed " + heroesAttackType[i]);
                     break;
+
                 }
             }
         }
     }
+
+
+    public static void golemDefence() {
+        for (int i = 0; i < heroesHealth.length; i++) {
+            if (heroesHealth[4] > 0 && heroesHealth[i] > 0 && heroesHealth[4] != heroesHealth[i]) {
+                heroesHealth[i] += bossDamage / 5;
+                heroesHealth[4] -= bossDamage / 5;
+            }
+        }
+    }
 }
+
 
 
 
